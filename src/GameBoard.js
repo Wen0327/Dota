@@ -1,5 +1,6 @@
 // src/GameBoard.jsx
 import { Stage, Graphics, Container } from '@pixi/react';
+import { Circle } from 'pixi.js';
 import { useState } from 'react';
 
 const TILE_SIZE = 64;
@@ -25,11 +26,14 @@ const Unit = ({ x, y, onClick }) => (
     draw={(g) => {
       g.clear();
       g.beginFill(0xff6666);
-      g.drawCircle(x * TILE_SIZE + TILE_SIZE / 2, y * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 3);
+      g.drawCircle(0, 0, TILE_SIZE / 3); // 在原點畫
       g.endFill();
     }}
+    x={x * TILE_SIZE + TILE_SIZE / 2}  // 把整個圖形平移到該格中間
+    y={y * TILE_SIZE + TILE_SIZE / 2}
     interactive
     pointerdown={onClick}
+    hitArea={new Circle(0, 0, TILE_SIZE / 3)} // 命中區域和圖對齊
   />
 );
 
